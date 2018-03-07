@@ -35,6 +35,15 @@ var geoSmallFont;
 // Status
 var STATUS;
 
+// Data
+var residenteSongs = ["tierra", "hermano"];
+var calle13Songs = ["mundo", "universal"];
+var calle13ResidenteSongs = ["podemos", "ser"];
+
+var calle13ResidenteSongsCount = 0;
+var calle13SongsCount = 0;
+var residenteSongsCount = 0;
+
 
 
 
@@ -183,10 +192,32 @@ function drawStatusVS() {
   noStroke();
   textFont(geoSmallFont);
   textSize(48);
+
+
+  if (frameCount % 30 == 0) {
+    calle13SongsCount++;
+    residenteSongsCount++;
+  }
+
+
+  if (calle13SongsCount >= calle13Songs.length) {
+    calle13SongsCount = 0;
+  }
+  
+  if (residenteSongsCount >= residenteSongs.length) {
+    residenteSongsCount = 0;
+  }
+
+
+
+
+
   //Residente
-  text("tierra", (windowWidth / 2), (windowHeight / 4));
+  text(residenteSongs[residenteSongsCount], (windowWidth / 2), (windowHeight / 4));
   //Callse 13
-  text("tierra", (windowWidth / 2), (3 * windowHeight / 4));
+  text(calle13Songs[calle13SongsCount], (windowWidth / 2), (3 * windowHeight / 4));
+
+
 
 }
 
@@ -202,7 +233,26 @@ function drawStatusPLUS() {
   //Text
   textFont(geoSmallFont);
   textSize(48);
-  text("tierra", (windowWidth / 2), (windowHeight / 2));
+
+  /*
+  for (var i = 0; i < calle13ResidenteSongs.length; i++) {
+    print(calle13Residente Songs[i]);
+  }*/
+
+
+  if (frameCount % 30 == 0) {
+    calle13ResidenteSongsCount++;
+  }
+
+
+  if (calle13ResidenteSongsCount >= calle13ResidenteSongs.length) {
+    calle13ResidenteSongsCount = 0;
+  }
+
+  //print(calle13ResidenteSongsCount);
+
+  text(calle13ResidenteSongs[calle13ResidenteSongsCount], (windowWidth / 2), (windowHeight / 2));
+
 
 
 }
