@@ -2,7 +2,7 @@
 
  Un artista evoluciona cuando conoce en verdad las herramientas que utiliza ¿Cuáles son las herramientas de un compositor? : Las palabras.
 
- En [Klustera](http://klustera.com/) desarrollamos esta herramienta para que [René Pérez Joglar](https://www.instagram.com/residente/) visualice las palabras qué más (y menos) usa en sus canciones.
+ En [Klustera](http://klustera.com/) desarrollamos esta herramienta para que [René Pérez Joglar](https://www.instagram.com/residente/) visualise las palabras que más (y menos) usa en sus canciones.
 
 
  ¿Qué tan similar es Residente a Calle 13? ¿Qué tan diferentes son?

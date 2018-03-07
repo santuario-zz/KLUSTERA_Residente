@@ -32,6 +32,9 @@
 var geoMidFont
 var geoSmallFont;
 
+// Status
+var STATUS;
+
 
 
 
@@ -87,6 +90,7 @@ function initialize() {
 
   initializeStatus();
   initializeHeader();
+  setStatus("VS");
 
 }
 
@@ -144,10 +148,43 @@ function initializeStatus() {
 
 
 function drawStatus() {
-  background(0);
+
+
+  if (STATUS == "VS") {
+    drawStatusVS();
+  } else if (STATUS == "PLUS") {
+    drawStatusPLUS();
+  }
 
 }
 
+function setStatus(_status) {
+
+  if (_status == "VS") {
+    STATUS = "VS";
+  } else if (_status == "PLUS") {
+    STATUS = "PLUS";
+  }
+
+}
+
+function drawStatusVS() {
+  background(40, 47, 47);
+  stroke(155);
+  line(10, 30, 145, 30);
+  //var correctionXS = (windowWidth / 2) - (backgroundImage.width / 2);
+  //var correctionYS = (windowHeight / 2) - (backgroundImage.height / 2);
+  noStroke();
+  fill(57,172,91);
+  rect(0, (windowHeight / 2), windowWidth,(windowHeight / 2));
+}
+
+
+function drawStatusPLUS() {
+  background(28, 36, 76);
+  stroke(155);
+  line(150, 30, 280, 30);
+}
 
 
 /*
@@ -166,9 +203,17 @@ function mouseClicked() {
   // print(((windowWidth / 2) - mouseX) + " :: " + mouseX + " , " + ((windowHeight / 2) - mouseY) + " :: " + mouseY);
 
   //print(((windowWidth / 2) - mouseX) + "," + ((windowHeight / 2) - mouseY));
-  print(mouseX + ", " + mouseY)
+  //print(mouseX + ", " + mouseY)
 
   //print(progressMouseX);
+
+
+  if (mouseX > 0 && mouseX < 150 && mouseY > 0 && mouseY < 40) { //VS
+    setStatus("VS");
+  } else if (mouseX > 150 && mouseX < 280 && mouseY > 0 && mouseY < 40) { //+
+    setStatus("PLUS");
+
+  }
 }
 
 
