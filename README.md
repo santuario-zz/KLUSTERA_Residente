@@ -4,6 +4,8 @@
 
  En [Klustera](http://klustera.com/) desarrollamos esta herramienta para que [René Pérez Joglar](https://www.instagram.com/residente/) visualice las palabras que más (y menos) usa en sus canciones.
 
+ ![m](https://github.com/santuario/KLUSTERA_Residente/blob/master/support/screen.png)
+
 
  ¿Qué tan similar es Residente a Calle 13? ¿Qué tan diferentes son?
  ¿Cuál es el ADN de sus letras?
