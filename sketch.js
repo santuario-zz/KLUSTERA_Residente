@@ -175,8 +175,19 @@ function drawStatusVS() {
   //var correctionXS = (windowWidth / 2) - (backgroundImage.width / 2);
   //var correctionYS = (windowHeight / 2) - (backgroundImage.height / 2);
   noStroke();
-  fill(57,172,91);
-  rect(0, (windowHeight / 2), windowWidth,(windowHeight / 2));
+  fill(57, 172, 91);
+  rect(0, (windowHeight / 2), windowWidth, (windowHeight / 2));
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  textFont(geoSmallFont);
+  textSize(48);
+  //Residente
+  text("tierra", (windowWidth / 2), (windowHeight / 4));
+  //Callse 13
+  text("tierra", (windowWidth / 2), (3 * windowHeight / 4));
+
 }
 
 
@@ -184,6 +195,16 @@ function drawStatusPLUS() {
   background(28, 36, 76);
   stroke(155);
   line(150, 30, 280, 30);
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  //Text
+  textFont(geoSmallFont);
+  textSize(48);
+  text("tierra", (windowWidth / 2), (windowHeight / 2));
+
+
 }
 
 
