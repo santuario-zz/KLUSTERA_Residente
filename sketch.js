@@ -34,6 +34,7 @@ var geoSmallFont;
 
 // Status
 var STATUS;
+var waitWordTime = 30;
 
 // Data
 var residenteSongs = ["tierra", "hermano"];
@@ -194,7 +195,7 @@ function drawStatusVS() {
   textSize(48);
 
 
-  if (frameCount % 30 == 0) {
+  if (frameCount % waitWordTime == 0) {
     calle13SongsCount++;
     residenteSongsCount++;
   }
@@ -240,7 +241,7 @@ function drawStatusPLUS() {
   }*/
 
 
-  if (frameCount % 30 == 0) {
+  if (frameCount % waitWordTime == 0) {
     calle13ResidenteSongsCount++;
   }
 
