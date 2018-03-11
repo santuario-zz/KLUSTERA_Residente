@@ -88,6 +88,12 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   //touchPositionY = windowHeight/2;
 
+  if (STATUS == "VS") {
+    touchPositionY = windowHeight/2;
+  } else if (STATUS == "PLUS") {
+    touchPositionY = windowHeight*2;
+  }
+
 }
 
 
@@ -154,7 +160,7 @@ function drawHeader() {
   textSize(15);
   text("Residente vs Calle 13 | Residente + Calle 13", 10, 10);
 
-  stroke(100);
+  stroke(255);
 
   if (isInsideButtonVS(mouseX, mouseY)) { //VS
     line(10, 30, 145, 30);
@@ -219,7 +225,7 @@ function setStatus(_status) {
 
   } else if (_status == "PLUS") {
     STATUS = "PLUS";
-    touchPositionY = (windowHeight);
+    touchPositionY = (windowHeight*2);
 
   }
 
@@ -227,7 +233,7 @@ function setStatus(_status) {
 
 function drawStatusVS() {
   //background(40, 47, 47);
-  stroke(100);
+  stroke(255);
   line(10, 30, 145, 30);
   //var correctionXS = (windowWidth / 2) - (backgroundImage.width / 2);
   //var correctionYS = (windowHeight / 2) - (backgroundImage.height / 2);
@@ -274,7 +280,7 @@ function drawStatusVS() {
 
 function drawStatusPLUS() {
   //background(28, 36, 76);
-  stroke(100);
+  stroke(255);
   line(150, 30, 280, 30);
 
   fill(255);
