@@ -70,6 +70,13 @@ var textY = 20;
 
 //sound
 var sound, amplitude;
+var level;
+
+//Patterns
+var blockSize, circNum, sivId;
+var isColorMode = true;
+var bgClr = 250;
+var colors = ['#152A3B', '#158ca7', '#F5C03E', '#D63826', '#0F4155', '#7ec873', '#4B3331'];
 
 
 /*
@@ -118,6 +125,7 @@ function draw() {
   drawStatus();
   drawHeader();
   drawSong();
+  drawPatterns();
 
   //drawItems();
 }
@@ -134,7 +142,7 @@ function draw() {
 
 
 function initialize() {
-
+  initializePatterns();
   initializePerlin();
   initializeStatus();
   initializeHeader();
@@ -237,6 +245,7 @@ function setStatus(_status) {
     STATUS = "PLUS";
     touchPositionY = (windowHeight * 2);
 
+
   }
 
 }
@@ -319,9 +328,9 @@ function drawStatusPLUS() {
   if (calle13ResidenteSongsCount >= calle13ResidenteSongs.length) {
     calle13ResidenteSongsCount = 0;
   }
-
+  genParcattern();
+  fill(255);
   //print(calle13ResidenteSongsCount);
-
   text(calle13ResidenteSongs[calle13ResidenteSongsCount], (windowWidth / 2), (windowHeight / 2));
 
 
@@ -486,6 +495,15 @@ function drawPerlin() {
 }
 
 
+/*
+ *****************************************
+ *****************************************
+ * MUSIC METHODS
+ *****************************************
+ *****************************************
+ */
+
+
 function initializeMusic() {
   smooth();
   sound.play();
@@ -495,22 +513,116 @@ function initializeMusic() {
 
 function drawSong() {
 
-  var level = amplitude.getLevel();
+  level = amplitude.getLevel();
   sizeFont = map(level, 0, 1, 5, 250);
-  //background(0);
-  var col = map(level, 0, 1, 0, 255);
-  //stroke(col, (col + random(500)) % 255, (col + random(500)) % 255, 10);
-  stroke(255);
-  strokeWeight(map(level, 0, 1, 0, 20));
-  var x = map(level, 0, 1, random(displayWidth), displayWidth);
-  var y = map(level, 0, 1, random(displayWidth), displayWidth);
-  line(displayWidth / 2, textY, x / 2, y / 2);
-  line(displayWidth / 2, textY, x * 2, random(0, y));
-  line(displayWidth / 2, textY, x / 4, y / 4);
-  line(displayWidth / 2, textY, x * 4, random(0, y));
-  fill(255);
-  var size = map(level, 0, 1, 0, 500);
-  ellipse(displayWidth / 2, textY, size, size);
+
+  if (STATUS == "VS") {
+    //background(0);
+    var col = map(level, 0, 1, 0, 255);
+    //stroke(col, (col + random(500)) % 255, (col + random(500)) % 255, 10);
+    stroke(255);
+    strokeWeight(map(level, 0, 1, 0, 20));
+    var x = map(level, 0, 1, random(displayWidth), displayWidth);
+    var y = map(level, 0, 1, random(displayWidth), displayWidth);
+    line(displayWidth / 2, textY, x / 2, y / 2);
+    line(displayWidth / 2, textY, x * 2, random(0, y));
+    line(displayWidth / 2, textY, x / 4, y / 4);
+    line(displayWidth / 2, textY, x * 4, random(0, y));
+    fill(255);
+    var size = map(level, 0, 1, 0, 500);
+    ellipse(displayWidth / 2, textY, size, size);
+  } else if (STATUS == "PLUS") {}
+
+
+
+}
+
+
+/*
+ *****************************************
+ *****************************************
+ * PATTERNS METHODS
+ *****************************************
+ *****************************************
+ */
+
+function initializePatterns() {
+  strokeWeight(1.5);
+  strokeCap(SQUARE);
+  stroke(0, 200);
+  /*
+  sivId = setInterval(function() {
+    genParcattern();
+  }, 3000);*/
+}
+
+
+function drawPatterns() {
+  //genParcattern();
+}
+
+
+function genParcattern() {
+  // circNum = ~~random(4, 10);
+  // blockSize = ~~random(30, 70);
+
+  circNum = ~~map(level, 0, 1, 4, 60);
+  blockSize = ~~map(level, 0, 1, 30, 170);
+
+
+  if (isColorMode) {
+    bgClr = colors[colors.length - 1];
+  } else {
+    bgClr = 250;
+  }
+  fill(bgClr);
+  rect(0, 0, width, height);
+
+  for (var y = blockSize / 2; y < height + blockSize / 2; y += blockSize) {
+    for (var x = blockSize / 2; x < width + blockSize / 2; x += blockSize) {
+      push();
+      translate(x, y);
+      rotate(HALF_PI * Math.round(random(4)));
+
+      for (var i = circNum; i > 0; --i) {
+        var diam = blockSize * 2 * i / (circNum + 1);
+        if (i < 2 || !isColorMode) {
+          fill(bgClr);
+        } else {
+          fill(colors[separateIdx(i - 1, circNum + 1)]);
+        }
+        arc(-blockSize / 2, -blockSize / 2, diam, diam, 0, HALF_PI);
+      }
+
+      for (var i = circNum; i > 0; --i) {
+        var diam = blockSize * 2 * i / (circNum + 1);
+        if (i < 2 || !isColorMode) {
+          fill(bgClr);
+        } else {
+          fill(colors[separateIdx(i - 1, circNum + 1)]);
+        }
+        arc(-blockSize / 2 + blockSize, -blockSize / 2 + blockSize, diam, diam, PI, PI + HALF_PI);
+      }
+      pop();
+    }
+  }
+  colors = shuffleArray(colors);
+}
+
+function separateIdx(idx, length) {
+  return Math.floor(Math.abs(idx - (length - 1) / 2));
+}
+
+function shuffleArray(array) {
+  var j, temp;
+  for (var i = array.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+
+  return array;
 }
 
 /*
