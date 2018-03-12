@@ -31,6 +31,7 @@
 // Font
 var geoMidFont
 var geoSmallFont;
+var sizeFont;
 
 // Status
 var STATUS;
@@ -66,6 +67,11 @@ var alphaText = 255;
 var textSelect = "no";
 var textY = 20;
 
+
+//sound
+var sound, amplitude;
+
+
 /*
  *****************************************
  *****************************************
@@ -81,6 +87,8 @@ function preload() {
   geoMidFont = loadFont('assets/fonts/Geogtq-Md.otf');
   geoSmallFont = loadFont('assets/fonts/Geogtq-Ul.otf');
 
+  //Sound
+  sound = loadSound("assets/music/El_Futuro_Es_Nuestro.mp3");
 
 }
 
@@ -89,9 +97,9 @@ function windowResized() {
   //touchPositionY = windowHeight/2;
 
   if (STATUS == "VS") {
-    touchPositionY = windowHeight/2;
+    touchPositionY = windowHeight / 2;
   } else if (STATUS == "PLUS") {
-    touchPositionY = windowHeight*2;
+    touchPositionY = windowHeight * 2;
   }
 
 }
@@ -109,6 +117,7 @@ function draw() {
   drawPerlin();
   drawStatus();
   drawHeader();
+  drawSong();
 
   //drawItems();
 }
@@ -129,6 +138,7 @@ function initialize() {
   initializePerlin();
   initializeStatus();
   initializeHeader();
+  initializeMusic();
   //initializeItems();
   setStatus("VS");
 
@@ -225,7 +235,7 @@ function setStatus(_status) {
 
   } else if (_status == "PLUS") {
     STATUS = "PLUS";
-    touchPositionY = (windowHeight*2);
+    touchPositionY = (windowHeight * 2);
 
   }
 
@@ -245,7 +255,10 @@ function drawStatusVS() {
   textAlign(CENTER, CENTER);
   noStroke();
   textFont(geoSmallFont);
-  textSize(48);
+
+
+  // textSize(48);
+  textSize(sizeFont);
 
 
   if (frameCount % waitWordTime == 0) {
@@ -288,7 +301,9 @@ function drawStatusPLUS() {
   noStroke();
   //Text
   textFont(geoSmallFont);
-  textSize(48);
+  //textSize(48);
+  textSize(sizeFont);
+
 
   /*
   for (var i = 0; i < calle13ResidenteSongs.length; i++) {
@@ -470,6 +485,33 @@ function drawPerlin() {
   //text(textSelect, 20, textY, 50, 50);
 }
 
+
+function initializeMusic() {
+  smooth();
+  sound.play();
+  amplitude = new p5.Amplitude();
+  //blendMode(ADD);
+}
+
+function drawSong() {
+
+  var level = amplitude.getLevel();
+  sizeFont = map(level, 0, 1, 5, 250);
+  //background(0);
+  var col = map(level, 0, 1, 0, 255);
+  //stroke(col, (col + random(500)) % 255, (col + random(500)) % 255, 10);
+  stroke(255);
+  strokeWeight(map(level, 0, 1, 0, 20));
+  var x = map(level, 0, 1, random(displayWidth), displayWidth);
+  var y = map(level, 0, 1, random(displayWidth), displayWidth);
+  line(displayWidth / 2, textY, x / 2, y / 2);
+  line(displayWidth / 2, textY, x * 2, random(0, y));
+  line(displayWidth / 2, textY, x / 4, y / 4);
+  line(displayWidth / 2, textY, x * 4, random(0, y));
+  fill(255);
+  var size = map(level, 0, 1, 0, 500);
+  ellipse(displayWidth / 2, textY, size, size);
+}
 
 /*
  *****************************************
